@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>ขอโทษนะเบบี๋</title>
+
+<!-- ฟอนต์ไทย: Noto Sans Thai (เนื้อความ) + Kanit (หัวข้อ) -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kanit:wght@500;600&family=Noto+Sans+Thai:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   1) ตัวแปรสี — ปรับโทนสีทั้งเว็บได้ที่นี่ที่เดียว
+   ============================================================ */
+:root{
+  --pink:#ff8fab;
+  --pink-deep:#f4718f;
+  --pink-soft:#ffd9e4;
+  --lavender:#c9b6f7;
+  --cream:#fff7ef;
+  --card:#fffdfc;
+  --ink:#5d4a55;
+  --ink-soft:#8d7a86;
+  --radius:30px;
+  --shadow:0 18px 45px rgba(214,150,175,.28);
+}
+
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family:'Noto Sans Thai',system-ui,sans-serif;
+  color:var(--ink);
+  background:linear-gradient(165deg,#fff0f5 0%,#fdf3e9 45%,#f1ecff 100%);
+  background-attachment:fixed;
+  min-height:100svh;
+  overflow-x:hidden;
+}
+h1,h2,.btn{font-family:'Kanit','Noto Sans Thai',sans-serif;font-weight:600}
+
+/* ============================================================
+   2) หัวใจลอยเป็นพื้นหลัง
+   ============================================================ */
+.hearts-bg{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.hearts-bg span{
+  position:absolute;bottom:-60px;opacity:0;
+  animation:floatUp linear infinite;will-change:transform,opacity;
+}
+@keyframes floatUp{
+  0%{transform:translateY(0) rotate(0deg) scale(.9);opacity:0}
+  10%{opacity:.75}
+  90%{opacity:.5}
+  100%{transform:translateY(-115svh) rotate(28deg) scale(1.1);opacity:0}
+}
+
+/* ============================================================
+   3) เวที + การ์ด + ทรานซิชันระหว่างหน้า
+   ============================================================ */
+.stage{
+  position:relative;z-index:1;
+  min-height:100svh;
+  display:grid;place-items:center;
+  padding:26px 18px calc(26px + env(safe-area-inset-bottom));
+}
+.screen{display:none;width:100%;max-width:430px}
+.screen.is-active{display:block;animation:screenIn .65s cubic-bezier(.22,1,.36,1) both}
+@keyframes screenIn{
+  from{opacity:0;transform:translateY(26px) scale(.97)}
+  to{opacity:1;transform:none}
+}
+.screen.is-leaving{animation:screenOut .32s ease both}
+@keyframes screenOut{to{opacity:0;transform:translateY(-16px) scale(.98)}}
+
+.card{
+  background:var(--card);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  border:1px solid rgba(255,255,255,.8);
+  padding:26px 22px 28px;
+  text-align:center;
+  animation:cardBreath 6s ease-in-out infinite;
+}
+@keyframes cardBreath{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+
+.title{font-size:clamp(26px,7.4vw,34px);margin:4px 0 10px;line-height:1.35;
+  background:linear-gradient(95deg,var(--pink-deep),var(--lavender));
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.subtitle{font-size:clamp(15px,4.2vw,17px);line-height:1.85;color:var(--ink-soft);margin:0}
+.note{font-size:14.5px;line-height:1.7;color:var(--pink-deep);min-height:22px;margin:16px 0 0;transition:opacity .25s}
+
+/* ============================================================
+   ข้อความขอโทษ (จดหมาย) — จัดย่อหน้าให้อ่านง่าย
+   ============================================================ */
+.letter{
+  text-align:left;margin:6px 0 0;padding:20px 18px 22px;
+  background:linear-gradient(160deg,#fff6f9,#faf5ff);
+  border-radius:22px;border:1px solid rgba(244,113,143,.14);
+  box-shadow:inset 0 2px 12px rgba(214,150,175,.10);
+}
+.letter p{
+  margin:0 0 16px;font-size:15.5px;line-height:2;color:var(--ink);
+  letter-spacing:.1px;word-break:normal;overflow-wrap:break-word;
+  opacity:0;transform:translateY(10px);animation:itemIn .6s ease forwards;
+}
+.letter p:nth-child(1){animation-delay:.10s}
+.letter p:nth-child(2){animation-delay:.25s}
+.letter p:nth-child(3){animation-delay:.40s}
+.letter p:nth-child(4){animation-delay:.55s}
+.letter p:nth-child(5){animation-delay:.70s}
+.letter p:nth-child(6){animation-delay:.85s}
+.letter p:nth-child(7){animation-delay:1.00s}
+.letter p:nth-child(8){animation-delay:1.15s}
+.letter p:nth-child(9){animation-delay:1.30s}
+.letter .lead{
+  font-family:'Kanit','Noto Sans Thai',sans-serif;font-weight:600;
+  font-size:19px;line-height:1.5;color:var(--pink-deep);margin-bottom:12px;
+}
+.letter .sign{
+  text-align:center;margin:20px 0 0;padding-top:16px;
+  border-top:1px dashed rgba(244,113,143,.35);
+  font-family:'Kanit','Noto Sans Thai',sans-serif;font-weight:600;
+  font-size:19px;line-height:1.6;color:var(--pink-deep);
+}
+
+/* ============================================================
+   4) ช่องใส่ GIF (ปล่อยว่างไว้ — ใส่ลิงก์เองที่ CONFIG.gif ด้านล่าง)
+   ============================================================ */
+.gif-slot{
+  width:100%;aspect-ratio:1/1;max-height:290px;
+  border-radius:24px;overflow:hidden;margin-bottom:18px;
+  background:linear-gradient(140deg,var(--pink-soft),var(--cream) 55%,#e8ddff);
+  border:2px dashed rgba(244,113,143,.35);
+  display:grid;place-items:center;
+  box-shadow:inset 0 2px 14px rgba(214,150,175,.18);
+}
+.gif-slot img{width:100%;height:100%;object-fit:contain;display:block}
+.gif-slot .hint{font-size:13px;color:rgba(141,122,134,.8);padding:0 14px;line-height:1.7}
+
+/* ============================================================
+   5) ปุ่ม
+   ============================================================ */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  border:0;cursor:pointer;font-size:16px;color:#fff;
+  padding:15px 26px;border-radius:999px;
+  background:linear-gradient(135deg,var(--pink),var(--pink-deep));
+  box-shadow:0 10px 22px rgba(244,113,143,.38);
+  transition:transform .18s ease,box-shadow .18s ease;
+}
+.btn:hover{transform:translateY(-2px) scale(1.03)}
+.btn:active{transform:scale(.95)}
+.btn--block{width:100%;max-width:300px}
+.btn--ghost{background:#f4eef3;color:var(--ink-soft);box-shadow:0 8px 18px rgba(150,130,145,.18)}
+.btn-row{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.btn-row .btn{flex:1 1 130px;max-width:170px;padding:15px 12px}
+
+/* ปุ่ม "ไม่ให้อภัย" ตอนหนี */
+#btnNo.is-running{position:fixed;z-index:60;margin:0;
+  transition:left .3s cubic-bezier(.34,1.56,.64,1),top .3s cubic-bezier(.34,1.56,.64,1),
+             transform .3s ease,opacity .4s ease,font-size .4s ease}
+#btnNo.bounce{animation:bounce .5s cubic-bezier(.28,1.5,.5,1)}
+@keyframes bounce{0%{transform:scale(1)}35%{transform:scale(1.18) rotate(-6deg)}70%{transform:scale(.9) rotate(5deg)}100%{transform:scale(1)}}
+/* ครบ 3 รอบ → เล็กลง/จางลง แต่ยังเห็นและยังกดได้ */
+#btnNo.is-tired{opacity:.45;font-size:13px;padding:10px 16px}
+
+/* ============================================================
+   6) รายการคำสัญญา
+   ============================================================ */
+.promise{list-style:none;margin:18px 0 0;padding:0;text-align:left;display:grid;gap:10px}
+.promise[hidden]{display:none}
+.promise li{
+  background:linear-gradient(120deg,#fff4f8,#f6f0ff);
+  border-radius:18px;padding:13px 16px;font-size:15px;line-height:1.6;
+  box-shadow:0 6px 14px rgba(200,160,190,.14);
+  opacity:0;transform:translateY(12px);animation:itemIn .5s ease forwards;
+}
+@keyframes itemIn{to{opacity:1;transform:none}}
+
+/* ============================================================
+   7) เอฟเฟกต์หัวใจ
+   ============================================================ */
+.fx-layer{position:fixed;inset:0;pointer-events:none;z-index:70;overflow:hidden}
+.pop-heart{position:fixed;font-size:26px;animation:pop 1.5s ease-out forwards;will-change:transform,opacity}
+@keyframes pop{
+  0%{transform:translate(-50%,-50%) scale(.3);opacity:1}
+  100%{transform:translate(calc(-50% + var(--dx)),calc(-50% - var(--dy))) scale(1.25) rotate(var(--rot));opacity:0}
+}
+.wipe{position:fixed;inset:0;z-index:80;display:grid;place-items:center;pointer-events:none;opacity:0}
+.wipe.on{animation:wipeGo 1.15s ease forwards}
+.wipe span{font-size:60px;display:block}
+@keyframes wipeGo{
+  0%{opacity:0;transform:scale(.2)}
+  38%{opacity:1;transform:scale(9)}
+  62%{opacity:1;transform:scale(16)}
+  100%{opacity:0;transform:scale(22)}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important;transition-duration:.01ms !important}
+}
+</style>
+</head>
+
+<body>
+<!-- หัวใจลอยพื้นหลัง (สร้างด้วย JS) -->
+<div class="hearts-bg" id="heartsBg" aria-hidden="true"></div>
+
+<main class="stage">
+
+  <!-- ============ หน้าที่ 1: หน้าขอโทษ ============ -->
+  <section class="screen is-active" id="screenSorry">
+    <div class="card">
+
+      <!-- ▼▼ ช่องใส่ GIF หน้าขอโทษ — ใส่ลิงก์ที่ CONFIG.gif.sorry.src ▼▼ -->
+      <div class="gif-slot" id="gifSorry"></div>
+      <!-- ▲▲ ช่องใส่ GIF ▲▲ -->
+
+      <h1 class="title">ขอโทษนะพี่นัท 💖</h1>
+
+      <!-- ▼▼ ข้อความขอโทษ — แก้คำได้ตรงนี้ (1 <p> = 1 ย่อหน้า) ▼▼ -->
+      <div class="letter" id="sorryText">
+        <p class="lead">เค้าขอโทษนะเบบี๋</p>
+        <p>เค้ารู้ว่าที่ผ่านมาเค้าทำให้เบบี๋น้อยใจหลายครั้งแล้ว และเค้าก็พูดอยู่ตลอดว่าจะปรับปรุงตัว จะใส่ใจให้มากกว่านี้ แต่สุดท้ายเค้าก็ยังมีเรื่องที่ทำให้เบบี๋รู้สึกไม่ดีอีก เค้าเข้าใจนะว่ามันอาจทำให้เบบี๋รู้สึกเหนื่อยกับการที่ต้องพูดเรื่องเดิม ๆ กับเค้าซ้ำแล้วซ้ำอีก</p>
+        <p>เค้าไม่ได้อยากให้เบบี๋ต้องมาคอยสอนหรือคอยบอกเค้าตลอดว่าอะไรควรทำอะไรไม่ควรทำ เค้าอยากเป็นคนที่คิดได้เอง อยากใส่ใจความรู้สึกเบบี๋ให้มากกว่านี้ บางทีเค้าอาจจะมองบางเรื่องว่าเป็นเรื่องเล็ก แต่เค้าลืมคิดไปว่ามันอาจเป็นเรื่องที่เบบี๋ให้ความสำคัญ เค้าขอโทษที่บางครั้งเค้าไม่ได้คิดถึงความรู้สึกของเบบี๋ให้มากพอ</p>
+        <p>เรื่องแผ่นแปะสิววันนี้ เค้ารู้ว่าเบบี๋ซื้อมาให้ด้วยความหวังดี อยากให้เค้าดูแลตัวเอง อยากให้เค้าติดตั้งแต่อยู่บ้าน แต่เค้ากลับไม่ได้ทำอย่างที่เบบี๋อยากให้ทำ ถึงเค้าจะไม่ได้ตั้งใจทำให้เบบี๋เสียใจ แต่เค้าก็เข้าใจว่าผลที่ออกมามันทำให้เบบี๋น้อยใจได้ เค้าไม่อยากเอาคำว่าไม่ได้ตั้งใจมาเป็นข้อแก้ตัวเลย</p>
+        <p>เค้าอยากให้เบบี๋รู้ว่าเค้าไม่ได้มองข้ามความรู้สึกของเบบี๋นะ เค้ารู้ว่าเบบี๋ก็มีความรู้สึก มีวันที่เหนื่อย มีวันที่อยากให้คนรักใส่ใจบ้าง เค้าไม่อยากเป็นต้นเหตุที่ทำให้เบบี๋ต้องมานั่งเสียใจหรือคิดมากเพราะเค้าอยู่เรื่อย ๆ</p>
+        <p>เค้ายอมรับว่าเค้ายังมีข้อเสียและยังต้องเรียนรู้อีกเยอะ เค้าไม่อยากพูดแค่ว่าจะเปลี่ยนแปลงอีกแล้ว เพราะเค้ารู้ว่าคำพูดอย่างเดียวคงไม่ได้ทำให้เบบี๋รู้สึกดีขึ้น เค้าอยากค่อย ๆ แสดงให้เห็นด้วยการกระทำจริง ๆ ว่าเค้าพยายามใส่ใจและปรับปรุงตัวอยู่</p>
+        <p>เค้ากลัวที่จะเสียเบบี๋ไปนะ เค้ารักเบบี๋มาก และยังอยากมีเบบี๋อยู่ในชีวิต อยากมีวันที่เราคุยกันดี ๆ หัวเราะด้วยกัน ใช้เวลาด้วยกัน และไม่ต้องมาน้อยใจหรือทะเลาะกันกับเรื่องที่เราสามารถปรับเข้าหากันได้ เค้าไม่ได้อยากให้ความสัมพันธ์ของเราต้องเหนื่อยแบบนี้เลย</p>
+        <p>ถ้าตอนนี้เบบี๋ยังรู้สึกไม่ดี เค้าเข้าใจนะ เค้าไม่อยากเร่งให้เบบี๋หายโกรธหรือรีบกลับมาคุยกับเค้า เค้าอยากให้เบบี๋ได้มีเวลาของตัวเอง แต่เค้าอยากให้รู้ว่าเค้าสำนึกกับสิ่งที่เกิดขึ้นจริง ๆ</p>
+        <p>ขอโทษนะเบบี๋ ขอโทษที่บางครั้งเค้าไม่ใส่ใจในสิ่งที่เบบี๋ตั้งใจทำให้ ขอโทษที่ทำให้ต้องน้อยใจซ้ำ ๆ เค้าอยากดูแลความรู้สึกเบบี๋ให้ดีกว่านี้จริง ๆ นะ อย่าเพิ่งหมดความหวังกับเค้าเลยนะ เค้ายังอยากจับมือเบบี๋ไปด้วยกัน ยังอยากมีเราอยู่แบบนี้ไปนาน ๆ</p>
+        <p class="sign">เค้ารักเบบี๋นะ ❤️🥺</p>
+      </div>
+      <!-- ▲▲ จบข้อความขอโทษ ▲▲ -->
+      <p class="note" id="sorryNote"></p>
+
+      <div class="btn-row">
+        <button class="btn" id="btnYes">ให้อภัย</button>
+        <button class="btn btn--ghost" id="btnNo">ไม่ให้อภัย</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ หน้าที่ 2: หน้าขอบคุณ ============ -->
+  <section class="screen" id="screenThanks">
+    <div class="card">
+
+      <!-- ▼▼ ช่องใส่ GIF หน้าขอบคุณ — ใส่ลิงก์ที่ CONFIG.gif.thanks.src ▼▼ -->
+      <div class="gif-slot" id="gifThanks"></div>
+      <!-- ▲▲ ช่องใส่ GIF ▲▲ -->
+
+      <h1 class="title">เย้! ขอบคุณที่ให้อภัยนะ 💖</h1>
+      <p class="subtitle">
+        เค้าพยายามใส่ใจและปรับปรุงตัว<br>เค้าจะดูแลความรู้สึกเบบี๋ให้ดีกว่านี้
+      </p>
+      <div style="margin-top:20px">
+        <button class="btn btn--block" id="btnPromise">กลับไปดูคำสัญญา</button>
+      </div>
+      <ul class="promise" id="promiseList" hidden></ul>
+    </div>
+  </section>
+
+</main>
+
+<div class="fx-layer" id="fxLayer" aria-hidden="true"></div>
+<div class="wipe" id="wipe" aria-hidden="true"><span>💗</span></div>
+
+<script>
+/* ============================================================
+   CONFIG — แก้ข้อความ / ลิงก์ GIF / คำสัญญา ได้ทั้งหมดตรงนี้
+   ============================================================ */
+const CONFIG = {
+
+  /* --- ใส่ลิงก์ GIF เอง (ไฟล์ .gif หรือ .webp ที่เคลื่อนไหวได้)
+         ถ้าเว้นว่าง "" จะเห็นเป็นช่องว่างเส้นประไว้รอใส่รูป --- */
+  gif: {
+    sorry : { src:"https://media.tenor.com/TplIga1fPsgAAAAm/milk-and-mocha-sorry.webp", hint:"วางลิงก์ GIF หน้าขอโทษตรงนี้" },   // หน้าขอโทษ
+    thanks: { src:"https://media.tenor.com/dUf9VC1mScoAAAAj/happy-anniversary.gif", hint:"วางลิงก์ GIF หน้าขอบคุณตรงนี้" }   // หน้าขอบคุณ
+  },
+
+  /* --- ข้อความปุ่มที่หนี + คำอธิบาย 3 รอบ --- */
+  dodgeRounds: [
+    { label:"ใจร้ายจัง 🥺",         note:"ขอโอกาสให้เค้าพิสูจน์ตัวเองอีกครั้งได้ไหม" },
+    { label:"กดไม่โดนหรอก 😝",      note:"สัญญาว่าจะตั้งใจฟังเบบี๋" },
+    { label:"เลือกให้อภัยเถอะนะ 💗", note:"ปุ่มให้อภัยอยู่ตรงนี้แล้วนะ เค้ารอคำตอบจากเบบี๋อยู่" }
+  ],
+
+  /* --- ข้อความตอบกลับถ้ายืนยันกด "ไม่ให้อภัย" หลังครบ 3 รอบ (แสดงในการ์ด ไม่มีกล่องลอย) --- */
+  noAcceptedText: "ไม่เป็นไรเลยนะ 🥺 เราเข้าใจ และจะรอจนกว่าเธอจะพร้อม ขอโทษจริง ๆ นะ",
+
+  /* --- รายการคำสัญญา --- */
+  promises: [
+    "ดูแลตัวเอง",
+    "เบาแป๊ปซี่กินน้อยลง",
+    "ไม่เถียงพี่นัทแล้ว",
+    "รู้ว่าเป็นห่วงขอบคุณนะคะที่ใส่ใจผมมาตลอดผมรักพี่จริงๆ"
+  ],
+
+  emojis: ["💗","💖","💕","🌸","✨","💘","🩷"]
+};
+
+/* ---------- helper ---------- */
+const $ = id => document.getElementById(id);
+const rand = (min,max) => Math.random()*(max-min)+min;
+const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+
+/* ============================================================
+   ใส่ GIF ลงในช่องว่างทั้ง 2 หน้า
+   ============================================================ */
+function mountGif(slotId, conf){
+  const slot = $(slotId);
+  if(conf.src){
+    const img = new Image();
+    img.src = conf.src; img.alt = "";
+    img.onerror = () => slot.innerHTML = `<div class="hint">${conf.hint}</div>`;
+    slot.innerHTML = "";
+    slot.appendChild(img);
+    slot.style.border = "none";          // มีรูปแล้วเอาเส้นประออก
+  }else{
+    slot.innerHTML = `<div class="hint">${conf.hint}</div>`;
+  }
+}
+mountGif("gifSorry",  CONFIG.gif.sorry);
+mountGif("gifThanks", CONFIG.gif.thanks);
+
+/* ============================================================
+   หัวใจลอยพื้นหลัง
+   ============================================================ */
+(function buildBgHearts(){
+  const bg = $("heartsBg"), total = window.innerWidth < 480 ? 14 : 22;
+  for(let i=0;i<total;i++){
+    const s = document.createElement("span");
+    s.textContent = pick(CONFIG.emojis);
+    s.style.left = rand(0,98)+"%";
+    s.style.fontSize = rand(13,30)+"px";
+    s.style.animationDuration = rand(11,22)+"s";
+    s.style.animationDelay = rand(-20,0)+"s";
+    bg.appendChild(s);
+  }
+})();
+
+/* ============================================================
+   เปลี่ยนหน้า (fade / slide)
+   ============================================================ */
+let currentScreen = "screenSorry";
+function goTo(nextId){
+  if(nextId === currentScreen) return;
+  const cur = $(currentScreen), next = $(nextId);
+  cur.classList.add("is-leaving");
+  setTimeout(()=>{
+    cur.classList.remove("is-active","is-leaving");
+    next.classList.add("is-active");
+    currentScreen = nextId;
+    window.scrollTo({top:0,behavior:"smooth"});
+  },300);
+}
+
+/* ============================================================
+   เอฟเฟกต์หัวใจพุ่งออกจากปุ่ม
+   ============================================================ */
+function burstHearts(el, amount = 16){
+  const r = el.getBoundingClientRect();
+  const cx = r.left + r.width/2, cy = r.top + r.height/2;
+  for(let i=0;i<amount;i++){
+    const h = document.createElement("div");
+    h.className = "pop-heart";
+    h.textContent = pick(CONFIG.emojis);
+    h.style.left = cx+"px";
+    h.style.top  = cy+"px";
+    h.style.fontSize = rand(18,36)+"px";
+    h.style.setProperty("--dx", rand(-140,140)+"px");
+    h.style.setProperty("--dy", rand(160,340)+"px");
+    h.style.setProperty("--rot", rand(-60,60)+"deg");
+    h.style.animationDelay = (i*0.045)+"s";
+    $("fxLayer").appendChild(h);
+    setTimeout(()=>h.remove(), 2200);
+  }
+}
+
+/* ============================================================
+   ปุ่ม "ไม่ให้อภัย" — หนีแบบสุ่ม 3 รอบ (ไม่หลุดออกนอกจอ)
+   ============================================================ */
+const btnNo = $("btnNo"), btnYes = $("btnYes"), noteEl = $("sorryNote");
+let dodgeCount = 0;
+
+function moveRandomly(){
+  const pad = 10;
+  const w = btnNo.offsetWidth, h = btnNo.offsetHeight;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const safe = btnYes.getBoundingClientRect();   // กันไม่ให้ไปทับปุ่ม "ให้อภัย"
+
+  let left, top, overlap, tries = 0;
+  do{
+    left = rand(pad, Math.max(pad, vw - w - pad));
+    top  = rand(pad, Math.max(pad, vh - h - pad));
+    overlap = !(left + w + 16 < safe.left || left > safe.right + 16 ||
+                top  + h + 16 < safe.top  || top  > safe.bottom + 16);
+    tries++;
+  }while(overlap && tries < 30);
+
+  btnNo.style.left = left+"px";
+  btnNo.style.top  = top+"px";
+  btnNo.classList.remove("bounce");
+  void btnNo.offsetWidth;            // reset animation
+  btnNo.classList.add("bounce");
+}
+
+function dodge(){
+  if(dodgeCount >= CONFIG.dodgeRounds.length) return;   // ครบ 3 รอบแล้วหยุดหนี
+  const round = CONFIG.dodgeRounds[dodgeCount];
+  btnNo.textContent  = round.label;                     // เปลี่ยนข้อความบนปุ่ม
+  noteEl.textContent = round.note;                      // เปลี่ยนข้อความคำอธิบาย
+  if(btnNo.parentElement !== document.body) document.body.appendChild(btnNo);  // ให้หนีตามหน้าจอจริง แม้การ์ดจะยาว
+  btnNo.classList.add("is-running");
+  moveRandomly();
+  dodgeCount++;
+  if(dodgeCount >= CONFIG.dodgeRounds.length) btnNo.classList.add("is-tired");
+}
+
+btnNo.addEventListener("mouseenter", dodge);               // เดสก์ท็อป
+btnNo.addEventListener("pointerdown", e => {               // มือถือ
+  if(dodgeCount < CONFIG.dodgeRounds.length){ e.preventDefault(); dodge(); }
+});
+/* ครบ 3 รอบแล้วกดได้จริง — ตอบกลับในการ์ด ไม่ขังผู้ใช้ */
+btnNo.addEventListener("click", () => {
+  if(dodgeCount >= CONFIG.dodgeRounds.length){
+    noteEl.textContent = CONFIG.noAcceptedText;
+  }
+});
+/* หมุนจอ/ย่อจอ แล้วดึงปุ่มกลับเข้าในจอเสมอ */
+window.addEventListener("resize", () => {
+  if(!btnNo.classList.contains("is-running")) return;
+  const r = btnNo.getBoundingClientRect();
+  btnNo.style.left = Math.min(Math.max(10, r.left), window.innerWidth  - r.width  - 10)+"px";
+  btnNo.style.top  = Math.min(Math.max(10, r.top ), window.innerHeight - r.height - 10)+"px";
+});
+
+/* ============================================================
+   กด "ให้อภัย" → หัวใจขยายเต็มจอ → เข้าหน้าขอบคุณ
+   ============================================================ */
+btnYes.addEventListener("click", e => {
+  burstHearts(e.currentTarget, 18);
+  const wipe = $("wipe");
+  wipe.classList.add("on");
+  setTimeout(()=>{
+    goTo("screenThanks");
+    btnNo.style.display = "none";          // เก็บปุ่มที่หนีออกไป
+  }, 620);
+  setTimeout(()=>wipe.classList.remove("on"), 1250);
+});
+
+/* ============================================================
+   หน้าขอบคุณ: ปุ่มแสดง/ซ่อนคำสัญญา
+   ============================================================ */
+const list = $("promiseList"), btnPromise = $("btnPromise");
+btnPromise.addEventListener("click", () => {
+  if(!list.hidden){
+    list.hidden = true;
+    btnPromise.textContent = "กลับไปดูคำสัญญา";
+  }else{
+    list.innerHTML = CONFIG.promises.map((p,i) =>
+      `<li style="animation-delay:${i*0.12}s">💗 ${p}</li>`).join("");
+    list.hidden = false;
+    btnPromise.textContent = "ซ่อนคำสัญญา";
+    burstHearts(btnPromise, 8);
+  }
+});
+</script>
+</body>
+</html>
